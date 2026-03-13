@@ -549,6 +549,7 @@
         .companies-section {
             background: var(--color-bg-alt);
             padding: clamp(5rem, 12vw, 8rem) 0;
+            overflow: hidden;
         }
 
         .companies-inner {
@@ -563,16 +564,63 @@
             margin: 0 auto 3rem;
         }
 
-        .logo-cloud {
-            max-width: 600px;
-            margin: 0 auto;
-            filter: grayscale(30%);
-            transition: filter 0.5s;
+        .logo-marquee-wrapper {
+            position: relative;
+            width: 100%;
         }
 
-        .logo-cloud:hover { filter: grayscale(0%); }
+        .logo-marquee-wrapper::before,
+        .logo-marquee-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: clamp(3rem, 10vw, 8rem);
+            z-index: 2;
+            pointer-events: none;
+        }
 
-        .logo-cloud img { width: 100%; height: auto; }
+        .logo-marquee-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--color-bg-alt), transparent);
+        }
+
+        .logo-marquee-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--color-bg-alt), transparent);
+        }
+
+        .logo-marquee-track {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            width: -moz-max-content;
+            width: max-content;
+            animation: logoScroll 20s linear infinite;
+        }
+
+        .logo-marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        .logo-marquee-track img {
+            height: clamp(1.75rem, 4vw, 2.75rem);
+            width: auto;
+            flex-shrink: 0;
+            filter: grayscale(30%);
+            opacity: 0.7;
+            transition: filter 0.4s, opacity 0.4s;
+        }
+
+        .logo-marquee-track img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        @keyframes logoScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
         /* ---- CTA / Contact ---- */
         .cta-section {
@@ -908,9 +956,22 @@
                 <span class="section-label">Portfolio</span>
                 <h2 class="section-title">Our Companies</h2>
                 <p class="companies-text">A growing portfolio of AI-driven ventures shaping the future of technology in the MENA region.</p>
-                <div class="logo-cloud">
-                    <img src="/images/companies/logo_cloud.png" alt="Portfolio companies including Pillars subsidiary logos" loading="lazy" />
-                </div>
+            </div>
+        </div>
+        <div class="logo-marquee-wrapper">
+            <div class="logo-marquee-track">
+                <!-- First set -->
+                <img src="/images/companies/Group 1.svg" alt="ASAS" />
+                <img src="/images/companies/tmam.png" alt="tmam" />
+                <img src="/images/companies/Group 5.svg" alt="Standby" />
+                <img src="/images/companies/Build (1).png" alt="Build" />
+                <img src="/images/companies/MENA.png" alt="MENA" />
+                <!-- Duplicate for seamless loop -->
+                <img src="/images/companies/Group 1.svg" alt="" aria-hidden="true" />
+                <img src="/images/companies/tmam.png" alt="" aria-hidden="true" />
+                <img src="/images/companies/Group 5.svg" alt="" aria-hidden="true" />
+                <img src="/images/companies/Build (1).png" alt="" aria-hidden="true" />
+                <img src="/images/companies/MENA.png" alt="" aria-hidden="true" />
             </div>
         </div>
     </section>
